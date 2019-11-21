@@ -1,7 +1,7 @@
 // Require statements
 let express = require('express');
 let app = express();
-
+let database = require('./database.js');
 
 // Middleware
 app.use(express.json());
