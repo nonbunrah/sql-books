@@ -4,7 +4,7 @@ In the following lesson/lab, we'll be putting all of the concepts covered in thi
 
 Remember to commit your code often through this exercise and as much as possible try to complete the steps without looking at the provided code. Forcing yourself to do the hard work of research, testing, and debugging will pay off in the short and long-term. Have fun!
 
-# Sprint 1 - mongoDB & mongoose
+# Sprint 1 - Express & sqlite3
 
 ## 0. Set up your app
 
@@ -268,4 +268,8 @@ With this code in place we should be able to change the titles of books saved in
 6. Three routes are yet to be refactored in our Book API. Using a similar process (but new code) modify the `GET /api/books/:id`, `POST /api/books`, `DELETE /api/books/:id`.
 
 
-In the next section we'll repeat much of this work for authors and then associate that new table with our current one. For now, let's focus on understanding this code.
+# Sprint 2: Authors
+## 0. Don't attempt this sprint until finishing the first one.
+Seriously.
+
+## 1. Repeat, repeat, repeat.
