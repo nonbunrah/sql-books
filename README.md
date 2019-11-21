@@ -267,6 +267,7 @@ With this code in place we should be able to change the titles of books saved in
 
 6. Three routes are yet to be refactored in our Book API. Using a similar process (but new code) modify the `GET /api/books/:id`, `POST /api/books`, `DELETE /api/books/:id`.
 
+---
 
 # Sprint 2: Authors
 ## 0. Don't attempt this sprint until finishing the first one.
