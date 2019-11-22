@@ -2,7 +2,7 @@
 let express = require('express');
 let database = require('./database.js');
 let app = express();
-
+let database = require('./database.js');
 
 // Middleware
 app.use(express.json());
@@ -20,16 +20,14 @@ app.get('/', (request, response) => {
 // get all books
 app.get('/api/books',  (req, res) => {
   // send all books as JSON response
-  const getAllBooks = 'SELECT * FROM books';
+  const getAllBooks = "SELECT * FROM books";
 
   database.all(getAllBooks, (error, results) => {
     if (error) {
-      console.log("Get all books table failed", error);
+      console.log(new Error('Could not get all books'), error);
       res.sendStatus(500);
     }
-    else {
-      res.status(200).json(results);
-    }
+    res.status(200).json(results);
   });
 });
 
@@ -41,23 +39,30 @@ app.get('/api/books/:id',  (req, res) => {
 
 // create new book
 app.post('/api/books',  (req, res) => {
-  // create new book with form data (`req.body`)
+  // create new book with data (`req.body`)
 
 });
 
 // update book
 app.put('/api/books/:id', (req,res) => {
   // get book id from url params (`req.params`)
-  const bookId = req.params.id;
-  const updateOneBook = `UPDATE books SET TITLE = ? WHERE books.oid = ${bookId}`;
+  const bookId = parseInt(req.params.id);
 
-  // use the query string and req.body to run the query on the database
-  database.run(updateOneBook, [req.body.title], error => {
+  // Use the keys in req.body to create dynamic SET values for the query string
+  const queryHelper = Object.keys(req.body).map(ele => `${ ele.toUpperCase() } = ?`);
+
+  // Use the dynamic SET values in from queryHelper to build full UPDATE string
+  const updateOneBook = `UPDATE books SET ${queryHelper.join(', ')} WHERE books.oid = ?`;
+
+  // Add values from req.body and the bookId to an array for use in database.run()
+  const queryValues = [...Object.values(req.body), bookId];
+
+
+  database.run(updateOneBook, queryValues, function (error) {
     if (error) {
-      console.log(`Update book with ID ${bookId} failed.`, error);
+      console.log(new Error('Could not update book'), error);
       res.sendStatus(500);
-    }
-    else {
+    } else {
       console.log(`Book with ID ${bookId} was updated successfully`);
       res.sendStatus(200);
     }
