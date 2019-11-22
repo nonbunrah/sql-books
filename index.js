@@ -45,21 +45,24 @@ app.post('/api/books',  (req, res) => {
 // update book
 app.put('/api/books/:id', (req,res) => {
   // get book id from url params (`req.params`)
+  const bookId = parseInt(req.params.id);
 
-  // const queryHelper = Object.keys.map(ele => {
-  //   return `${ ele.toUpperCase() } = ?`;
-  // });
-  // const updateOneBook = `UPDATE books SET ${queryHelper.join(' ')} WHERE books.oid = ${req.params.id}`;
-  // database.run(updateOneBook, Object.values(req.body), error => {
+  // Use the keys in req.body to create dynamic SET values for the query string
+  const queryHelper = Object.keys(req.body).map(ele => `${ ele.toUpperCase() } = ?`);
 
-  const updateOneBook = `UPDATE books SET TITLE = ? WHERE books.oid = ${req.params.id}`;
+  // Use the dynamic SET values in from queryHelper to build full UPDATE string
+  const updateOneBook = `UPDATE books SET ${queryHelper.join(', ')} WHERE books.oid = ?`;
+  console.log(updateOneBook);
+  // Add values from req.body and the bookId to an array for use in database.run()
+  const queryValues = [...Object.values(req.body), bookId];
+  console.log(queryValues);
 
-  database.run(updateOneBook, [req.body.title], error => {
+  database.run(updateOneBook, queryValues, function (error) {
     if (error) {
       console.log(new Error('Could not update book'), error);
       res.sendStatus(500);
     } else {
-      console.log(`Book with ID ${req.params.id} was update successfully`);
+      console.log(`Book with ID ${bookId} was updated successfully`);
       res.sendStatus(200);
     }
   });
