@@ -52,10 +52,10 @@ app.put('/api/books/:id', (req,res) => {
 
   // Use the dynamic SET values in from queryHelper to build full UPDATE string
   const updateOneBook = `UPDATE books SET ${queryHelper.join(', ')} WHERE books.oid = ?`;
-  console.log(updateOneBook);
+
   // Add values from req.body and the bookId to an array for use in database.run()
   const queryValues = [...Object.values(req.body), bookId];
-  console.log(queryValues);
+
 
   database.run(updateOneBook, queryValues, function (error) {
     if (error) {
