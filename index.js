@@ -2,7 +2,6 @@
 let express = require('express');
 let database = require('./database.js');
 let app = express();
-let database = require('./database.js');
 
 // Middleware
 app.use(express.json());
