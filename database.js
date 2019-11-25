@@ -33,22 +33,22 @@ const createTableBooksCategoriesQuery =
 	category_id INTEGER)`;
 
 // Create database.run
-database.run(createTableBooksQuery, error => {
+database.exec(createTableBooksQuery, error => {
 	if (error) {console.log("Create books table failed", error)} 
 	else {console.log("Create books table succeeded!")}
 });
 
-database.run(createTableAuthorsQuery, error => {
+database.exec(createTableAuthorsQuery, error => {
 	if (error) {console.log("Create authors table failed", error)} 
 	else {console.log("Create authors table succeeded!")}
 });
 
-database.run(createTableCategoriesQuery, error => {
+database.exec(createTableCategoriesQuery, error => {
 	if (error) {console.log("Create categories table failed", error)} 
 	else {console.log("Create categories table succeeded!")}
 });
 
-database.run(createTableBooksCategoriesQuery, error => {
+database.exec(createTableBooksCategoriesQuery, error => {
 	if (error) {console.log("Create books_categories table failed", error)} 
 	else {console.log("Create books_categories table succeeded!")}
 });
