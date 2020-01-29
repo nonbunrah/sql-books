@@ -12,8 +12,8 @@ const port = 3000;
 
 
 // Routes
-app.get('/', (request, response) => {
-  response.send('Visit /api/books to see our list of titles');
+app.get('/', (req, res) => {
+  res.send('Visit /api/books to see our list of titles');
 });
 
 // get all books
